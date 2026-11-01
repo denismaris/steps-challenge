@@ -1201,6 +1201,60 @@ kbd {
   }
 }
 
+/* ── Hungarian flags (Bogdi) ──────────────── */
+.flag-wall {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+.flag-pole {
+  position: absolute;
+  width: calc(17vh * var(--fs));
+  height: calc(24vh * var(--fs));
+  border-left: calc(0.7vh * var(--fs)) solid #6b4a2b;
+}
+.flag-pole::before {
+  content: '';
+  position: absolute;
+  left: calc(-1.05vh * var(--fs));
+  top: calc(-1vh * var(--fs));
+  width: calc(1.4vh * var(--fs));
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #e8b923;
+}
+.flag-hu {
+  width: 100%;
+  height: 45%;
+  display: flex;
+  flex-direction: column;
+  transform-origin: left center;
+  animation: wave 1.6s ease-in-out infinite;
+  box-shadow: 0 4px 10px rgba(40, 28, 12, 0.2);
+}
+.flag-hu span {
+  flex: 1;
+}
+.flag-hu span:nth-child(1) {
+  background: #ce2939;
+}
+.flag-hu span:nth-child(2) {
+  background: #fff;
+}
+.flag-hu span:nth-child(3) {
+  background: #477050;
+}
+@keyframes wave {
+  0%,
+  100% {
+    transform: perspective(40vh) rotateY(0deg) skewY(0deg);
+  }
+  50% {
+    transform: perspective(40vh) rotateY(-22deg) skewY(4deg);
+  }
+}
+
 /* how far behind the person above */
 .gap-note {
   font-family: var(--note);

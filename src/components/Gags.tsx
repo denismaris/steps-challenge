@@ -272,3 +272,40 @@ export function MoneyRain({ count = 34, startDelay = 0 }: { count?: number; star
     </div>
   )
 }
+
+// Hungarian flags waving around the edges of the screen.
+const FLAG_SPOTS = [
+  { left: 3, top: 8, size: 1.1, tilt: -8 },
+  { left: 16, top: 30, size: 0.8, tilt: 5 },
+  { left: 4, top: 56, size: 1, tilt: -4 },
+  { left: 15, top: 76, size: 0.75, tilt: 7 },
+  { left: 81, top: 6, size: 1, tilt: 6 },
+  { left: 70, top: 28, size: 0.75, tilt: -6 },
+  { left: 83, top: 50, size: 1.15, tilt: 4 },
+  { left: 71, top: 74, size: 0.85, tilt: -5 },
+  { left: 31, top: 4, size: 0.6, tilt: -3 },
+  { left: 60, top: 3, size: 0.65, tilt: 4 },
+]
+
+export function FlagWall({ instant = false }: { instant?: boolean }) {
+  return (
+    <div className="flag-wall">
+      {FLAG_SPOTS.map((f, i) => (
+        <motion.div
+          key={i}
+          className="flag-pole"
+          style={{ left: `${f.left}%`, top: `${f.top}%`, ['--fs' as string]: f.size, rotate: f.tilt }}
+          initial={instant ? false : { y: '60vh', opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.3 + i * 0.08, type: 'spring', stiffness: 140, damping: 15 }}
+        >
+          <div className="flag-hu" style={{ animationDelay: `${-i * 0.27}s` }}>
+            <span />
+            <span />
+            <span />
+          </div>
+        </motion.div>
+      ))}
+    </div>
+  )
+}

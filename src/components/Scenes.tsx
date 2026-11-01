@@ -3,7 +3,7 @@ import { animate, motion, AnimatePresence } from 'framer-motion'
 import confetti from 'canvas-confetti'
 import { config, type Contestant } from '../config'
 import * as sfx from '../sound'
-import { FaceGag, MoneyRain } from './Gags'
+import { FaceGag, FlagWall, MoneyRain } from './Gags'
 import { CrownSvg, Footprint, FlySvg, Polaroid, ScribbleCircle, ScribbleUnderline, SplatLayer, Starburst, Sticker, TILTS, TomatoSvg, type SplatData } from './Art'
 
 /** Romanian number format: 1073 → 1.073 */
@@ -560,6 +560,7 @@ export function Reveal({ c, index, rank, total, instant, splats, addSplat, shake
   return (
     <motion.div className={`scene reveal tier-${tier}${showMsg && msg ? ' with-msg' : ''}`} exit={{ opacity: 0, x: -80, rotate: -2 }} transition={{ duration: 0.4 }}>
       {isWinner && <MoneyRain startDelay={instant ? 0 : 1} />}
+      {c.flags && <FlagWall instant={instant} />}
       {isWinner && !instant && <motion.div className="flash" initial={{ opacity: 1 }} animate={{ opacity: 0 }} transition={{ duration: 1 }} />}
       {!isWinner && (
         <motion.div className="place-label" initial={instant ? false : { opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 }}>

@@ -15,6 +15,7 @@ export type Contestant = {
   // x, y = point between the eyes (0–1 of the photo), d = distance between the eyes, rot = head tilt in degrees.
   face?: Face
   gag?: GagKind // the joke drawn on the face at the reveal
+  flags?: 'hu' // waving flags behind their reveal
 }
 
 export type Face = { x: number; y: number; d: number; rot?: number }
@@ -43,14 +44,14 @@ export const config = {
   contestants: [
     // Step totals are from the sheet up to 30-Oct. Update with the final numbers.
     { name: 'Deiu', photo: '/photos/deiu.jpg', steps: 447_156, face: { x: 0.51, y: 0.37, d: 0.33 }, gag: 'shades', quote: 'Am mers atât de mult încât Google Maps m-a întrebat dacă sunt bine.' }, // 🥇 winner
-    { name: 'Bogdi', photo: '/photos/bogdi.jpg', steps: 438_186, face: { x: 0.57, y: 0.475, d: 0.28, rot: -24 }, gag: 'tear', quote: 'Locul 2 e doar primul dintre cei care au și o viață socială.' }, // 🥈 (Flo in the sheet)
+    { name: 'Bogdi', photo: '/photos/bogdi.jpg', steps: 438_186, face: { x: 0.57, y: 0.475, d: 0.28, rot: -24 }, gag: 'tear', flags: 'hu', quote: 'Locul 2 e doar primul dintre cei care au și o viață socială.' }, // 🥈 (Flo in the sheet)
     { name: 'Albert', photo: '/photos/albert.jpg', steps: 427_780, face: { x: 0.57, y: 0.425, d: 0.24, rot: 9 }, gag: 'pig', quote: 'Domnu care îngrașă porcu în ajun.' }, // 🥉
     { name: 'Luci', photo: '/photos/luci.jpg', steps: 278_470, face: { x: 0.53, y: 0.44, d: 0.275, rot: 8 }, gag: 'zzz', quote: 'Prea bun pentru rușine, prea leneș pentru podium.' },
     { name: 'Maris', photo: '/photos/maris.jpg', steps: 247_298, face: { x: 0.46, y: 0.435, d: 0.34, rot: -1 }, gag: 'chicken', quote: 'Am mers mult… majoritatea pașilor au fost până la frigider.' },
-    { name: 'Flavius', photo: '/photos/flavius.jpg', steps: 235_721, face: { x: 0.355, y: 0.515, d: 0.27, rot: -4 }, gag: 'tears' }, // 🍅 last place — uses lastPlaceMessage below
+    { name: 'Flavius', photo: '/photos/flavius.jpg', steps: 235_721, face: { x: 0.355, y: 0.515, d: 0.27, rot: -4 }, gag: 'tears' }, // 🍅 last place
   ] as Contestant[],
 
-  lastPlaceMessage: 'Ti-o bagam in cur', // big roast for last place
+  lastPlaceMessage: '', // big red stamp for last place (leave empty for none)
 
   // ── Records screen (shown after the podium) ──
   // Group total steps are added up from the contestants above automatically.
