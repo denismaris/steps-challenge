@@ -1,7 +1,7 @@
 // Hand-drawn SVG art: tomato, splats, crown, footprints, medal.
 import { useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
-import type { Contestant } from '../config'
+import { asset, type Contestant } from '../config'
 
 // ── Avatar ────────────────────────────────────────────────────
 const AVATAR_GRADIENTS = [
@@ -26,7 +26,7 @@ export function initials(name: string) {
 export function Avatar({ c, index }: { c: Contestant; index: number }) {
   const [failed, setFailed] = useState(false)
   if (c.photo && !failed) {
-    return <img className="avatar-img" src={c.photo} alt={c.name} draggable={false} onError={() => setFailed(true)} />
+    return <img className="avatar-img" src={asset(c.photo)} alt={c.name} draggable={false} onError={() => setFailed(true)} />
   }
   const [a, b] = AVATAR_GRADIENTS[index % AVATAR_GRADIENTS.length]!
   return (

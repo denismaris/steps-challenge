@@ -24,3 +24,11 @@ Open the link Vite prints, then press **Space** to go forward.
 
 Everything (names, steps, quotes, photos, face gags, records, the winner song) is in [`src/config.ts`](src/config.ts).
 Photos go in `public/photos/`, the winner song in `public/audio/winner.mp3`.
+
+## Publish
+
+```bash
+npm run deploy
+```
+
+Builds the app and pushes it to the `gh-pages` branch. It's live at https://denismaris.github.io/steps-challenge/

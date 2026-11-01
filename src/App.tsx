@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useAnimate } from 'framer-motion'
-import { config } from './config'
+import { asset, config } from './config'
 import * as sfx from './sound'
 import { Backdrop, BuildUp, Final, Reveal, StartScreen, WinnerBuildUp, tierOf } from './components/Scenes'
 import type { SplatData } from './components/Art'
 import { Records } from './components/Records'
 
-sfx.prepareSong(config.winnerSong.src)
+sfx.prepareSong(asset(config.winnerSong.src))
 
 type Phase = 'suspense' | 'reveal'
 
@@ -57,7 +57,7 @@ export default function App() {
       return
     }
     const { src, startAt, volume } = config.winnerSong
-    const t = setTimeout(() => sfx.playSong(src, startAt, volume), instant ? 0 : 900)
+    const t = setTimeout(() => sfx.playSong(asset(src), startAt, volume), instant ? 0 : 900)
     return () => clearTimeout(t)
   }, [songOn]) // eslint-disable-line react-hooks/exhaustive-deps
 

@@ -30,6 +30,11 @@ export type StatRecord = {
   fun?: boolean // red "shame" styling
 }
 
+/** Turns '/photos/x.jpg' into a path that also works when the site lives in a sub-folder (GitHub Pages). */
+export function asset(path: string) {
+  return import.meta.env.BASE_URL + path.replace(/^\//, '')
+}
+
 export const config = {
   title: 'Provocarea Pașilor',
   year: '2026',
