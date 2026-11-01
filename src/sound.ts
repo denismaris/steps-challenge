@@ -29,12 +29,13 @@ export function initAudio() {
     b.buffer = ctx.createBuffer(1, 1, 22050)
     b.connect(ctx.destination)
     b.start(0)
-    // ...and "touch" the song element so it may play later from a timer
+    // ...and "touch" the song element so it may play later from a timer.
+    // It stays muted and paused until playSong(): on a first visit the file is still
+    // downloading and some browsers ignore an early pause() and start it once loaded.
     if (songSrc) {
-      song = new Audio(songSrc)
-      song.preload = 'auto'
+      song = makeSong(songSrc)
       song.muted = true
-      void song.play().then(() => { song!.pause(); song!.muted = muted }).catch(() => {})
+      void song.play().then(() => { if (!songWanted) song!.pause() }).catch(() => {})
     }
   }
 }
@@ -57,19 +58,31 @@ export function isMuted() {
 export function setMuted(m: boolean) {
   muted = m
   if (ctx && master) master.gain.setTargetAtTime(m ? 0 : VOLUME, ctx.currentTime, 0.03)
-  if (song) song.muted = m
+  if (song && songWanted) song.muted = m
 }
 
 // ---- winner song (a real audio file, not synthesized) ----
 let song: HTMLAudioElement | null = null
+let songWanted = false // true only while the winner song should be heard
 let fadeTimer = 0
+
+function makeSong(src: string) {
+  const a = new Audio(src)
+  a.preload = 'auto'
+  // safety net: if the browser starts it on its own, silence it
+  a.addEventListener('playing', () => {
+    if (!songWanted) {
+      a.muted = true
+      a.pause()
+    }
+  })
+  return a
+}
 
 export function playSong(src: string, startAt: number, volume: number) {
   clearInterval(fadeTimer)
-  if (!song) {
-    song = new Audio(src)
-    song.preload = 'auto'
-  }
+  songWanted = true
+  if (!song) song = makeSong(src)
   void song.pause()
   song.muted = muted
   song.volume = volume
@@ -78,6 +91,7 @@ export function playSong(src: string, startAt: number, volume: number) {
 }
 
 export function stopSong(fadeMs = 1200) {
+  songWanted = false
   const s = song
   if (!s || s.paused) return
   clearInterval(fadeTimer)
